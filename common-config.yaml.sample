@@ -1,0 +1,16 @@
+---
+  tenantId: "<>"
+  location: "westeurope"
+  locationAbbreviation: "weu"
+  environment: "dev"
+  workload: "poc"
+  org: "<org>"
+  tags:
+    OwnerEmail: "<email>"
+    CreationDate: "<date in yyyy-MM-ddTHH:mm:ss.fffffffZ>"
+    DeletionDate: "<date in yyyy-MM-ddTHH:mm:ss.fffffffZ>"
+  tfstate:
+    resourceGroupName: "<rg>"
+    storageAccountName: "<sa>"
+    containerName: "cdktf"
+    key: <key>
