@@ -17,7 +17,7 @@ Below are the steps to install the pre requisites to run the project -
   3) Execute the below command to download the remote template from the GIT repository.
   
   ```
-  cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates --local
+  cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
   ```
      
   4) Install the required libraries using yarn.
