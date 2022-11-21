@@ -20,7 +20,7 @@ Below are the steps to install the pre requisites to run the project -
   cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates --local
   ```
      
-  3) Install the required libraries using yarn.
+  4) Install the required libraries using yarn.
 
      - cd to the project root directory and execute the below command-
     
@@ -30,8 +30,8 @@ Below are the steps to install the pre requisites to run the project -
 
 # Update the common-config.yaml.sample configuration file
 
-  4) Rename this file to common-config.yaml.
-  5) Update the content of this configuration file as below 
+  5) Rename this file to common-config.yaml.
+  6) Update the content of this configuration file as below 
 
   ````
   ```
@@ -57,11 +57,11 @@ Below are the steps to install the pre requisites to run the project -
 
 # How to synthesize and deploy the project.
 
-  6) Synthesize the code by executing the below command at the project root directory
+  7) Synthesize the code by executing the below command at the project root directory
      ```
       cdktf synth
      ```
-  7) Deploy the templates to the cloud.
+  8) Deploy the templates to the cloud.
 
      - Login to Microsoft Azure with the appropriate tenant id using below command 
      ```
@@ -89,7 +89,7 @@ Below are the steps to install the pre requisites to run the project -
 
 # How to destroy the created resources 
 
-  8) Destroy the created infrastructure in the cloud.
+  9) Destroy the created infrastructure in the cloud.
      
      - Execute below command at the root location of the project to destroy the terraform infrastructure
      ```
