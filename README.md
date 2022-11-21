@@ -14,6 +14,12 @@ Below are the steps to install the pre requisites to run the project -
      ```
       npm install --global cdktf-cli@latest
      ```
+  3) Execute the below command to download the remote template from the GIT repository.
+  
+  ```
+  cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates --local
+  ```
+     
   3) Install the required libraries using yarn.
 
      - cd to the project root directory and execute the below command-
