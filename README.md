@@ -1,17 +1,21 @@
 # Pre-requisites to run the CDKTF project
   1) Download and install Node JS
       ```
+      https://developer.hashicorp.com/terraform/downloads
+      ``` 
+  2) Download and install Node JS
+      ```
       https://nodejs.org/en/download
       ``` 
-  2) Download the remote CDKTF core templates from the public GITHUB repository to local
+  3) Download the remote CDKTF core templates from the public GITHUB repository to local
       ```
       cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
       ```
-  3) Install CDKTF using npm command
+  4) Install CDKTF using npm command
       ```
       npm install --global cdktf-cli@latest
       ```
-  4) Setup the Terraform state file
+  5) Setup the Terraform state file
      - Login to Microsoft Azure with the target tenant id
       ```
       az login --tenant <tenand-id>
@@ -35,7 +39,7 @@
       az storage container create --name <storage container name> --account-name <above storage account name> --account-key $ARM_ACCESS_KEY
       ```
      - TODO: Create default subnet in your VNet, if not already
-  5) Rename common-config.yaml.sample to common-config.yaml and update the contends with below configuration:
+  6) Rename common-config.yaml.sample to common-config.yaml and update the contends with below configuration:
       ```
       tenantId: "<enter tenant id here>"
       location: "<enter Azure region here>"
