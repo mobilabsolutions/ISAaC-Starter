@@ -1,104 +1,79 @@
-# azure-data-platform-cdktf
-
-# How to Install the pre-requisites to run the project.
-
-Below are the steps to install the pre requisites to run the project - 
-
-  1) Download and install Node JS using the below link.
-
+# Pre-requisites to run the CDKTF project
+  1) Download and install Node JS
       ```
-      https://nodejs.org/en/download/
+      https://nodejs.org/en/download
       ``` 
-  2) Install CDKTF by executing the below npm command in the terminal.
-
-     ```
+  2) Download the remote CDKTF core templates from the public GITHUB repository to local
+      ```
+      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
+      ```
+  3) Install CDKTF using npm command
+      ```
       npm install --global cdktf-cli@latest
-     ```
-  3) Execute the below command to download the remote template from the GIT repository.
-  
-  ```
-  cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
-  ```
-     
-  4) Install the required libraries using yarn.
+      ```
+  4) Setup the Terraform state file
+     - Login to Microsoft Azure with the target tenant id
+      ```
+      az login --tenant <tenand-id>
+      ```
+     - Set the target Azure subscription id
+      ```
+      az account set --subscription '<subscription-id>'
+      ```
+     - Create separate resource group, storage account and container to store the CDKTF state file
+      ```
+      az group create --location <location> --name <rg name> --tage <list of tags using NAME="VALUE" pairs>
+      ```
+      ```
+      az storage account create --name <storage account name> -g <above rg name> --location <location> --sku "Standard_LRS" --tags <list of tags using NAME="VALUE" pairs>
+      ```
+      ```
+      $env:ARM_ACCESS_KEY=$(az storage account keys list -g <above rg name> -n <above storage account name> --query "[0].value" -o tsv) ---> At PowerShell
+      export ARM_ACCESS_KEY=$(az storage account keys list -g <above rg name> --name <above storage account name> --query "[0].value" -o tsv ) ---> At GitBash
+      ```
+      ```
+      az storage container create --name <storage container name> --account-name <above storage account name> --account-key $ARM_ACCESS_KEY
+      ```
+     - TODO: Create default subnet in your VNet, if not already
+  5) Rename common-config.yaml.sample to common-config.yaml and update the contends with below configuration:
+      ```
+      tenantId: "<enter tenant id here>"
+      location: "<enter Azure region here>"
+      locationAbbreviation: "<enter local abbrevation here>"
+      environment: "<enter environment name here>"
+      workload: "<enter workload name here>"
+      org: "<enter organisation name here>"
+      tags:
+        OwnerEmail: "<enter owners email id>"
+        CreationDate: "<enter resource creation date>"
+        DeletionDate: "<enter deletion date>"
+      tfstate:
+        # Terraform requires a storage account to store the state
+        resourceGroupName: "<above rg name from step 3>"
+        storageAccountName: "<above storage account name from step 3>"
+        containerName: "<above storage account container from step 3>"
+        key: <enter the terraform state file name here as per your wish>
+      ```
 
-     - cd to the project root directory and execute the below command-
-    
-     ```
-     yarn install
-     ```
-
-# Update the common-config.yaml.sample configuration file
-
-  5) Rename this file to common-config.yaml.
-  6) Update the content of this configuration file as below 
-
-  ````
-  ```
-  tenantId: "<enter tenant id here>"
-  location: "enter location here"
-  locationAbbreviation: "enter local abbrevation here"
-  environment: "enter environment here"
-  workload: "<enter workload here>"
-  org: "<enter org here>"
-  tags:
-    OwnerEmail: "<enter owners email id>"
-    CreationDate: "<enter resource creation date>"
-    DeletionDate: "<enter deletion date>"
-  tfstate:
-    resourceGroupName: "<Terraform requires a storage account to store the state. 
-                         Enter the name of resource group here which will have the storage account to hold the terraform state>"
-    storageAccountName: "<Enter the storage account name which will store the state of terraform>"
-    containerName: "<Enter the name of the container inside the storage account which will hold the terraform state>"
-    key: <key>
-
-  ```
-  ````       
-
-# How to synthesize and deploy the project.
-
-  7) Synthesize the code by executing the below command at the project root directory
-     ```
+# To synthesize and deploy the CDKTF project
+  1) Synthesize the CDKTF project at the project root directory
+      ```
       cdktf synth
-     ```
-  8) Deploy the templates to the cloud.
+      ```
+  2) Deploy the CDKTF project to the Azure cloud
+      ```
+      cdktf deploy
+      ```
+      If the CDKTF templates are synthesized successfully the terraform plan is displayed.
+      After carefully reviewing the terraform plan, go ahead and approve the plan.
+      After approval of terraform plan, the Azure resources will be created in the mentioned
+      subscription one by one as per the logical sequence.
 
-     - Login to Microsoft Azure with the appropriate tenant id using below command 
-     ```
-     az login --tenant <tenand-id>
-     ```
-     - Set the appropriate subscription id using below command.
-     ```
-     az account set --subscription '<subscription-id>'
-     ```
-
-     Execute below command in the terminal to set the environment variable ARM_ACCESS_KEY
-
-     ```
-     $env:ARM_ACCESS_KEY=$(az storage account keys list -g <resource group name> -n <storage account name> --query "[0].value" -o tsv)  
-     ``` 
-
-     - Execute the command to deploy templates to the mentioned subscription and tenant
-     ```
-     cdktf deploy
-     ```
-     After this command is executed, if the templates are synthesized successfully the terraform 
-     plan is displayed. After carefully reviewing the terraform plan if it is as per expectations.
-     Then Approve the plan. After the approval of terraform plan the resources will be created in 
-     the mentioned subscription one by one as per the logical sequence.
-
-# How to destroy the created resources 
-
-  9) Destroy the created infrastructure in the cloud.
-     
-     - Execute below command at the root location of the project to destroy the terraform infrastructure
-     ```
-     cdktf destroy
-     ```
+# To destroy the created resources
+  1) Destroy the above created infrastructure
+     - Execute below command at the root location of the project to destroy the abvoe created infrastructure:
+      ```
+      cdktf destroy
+      ```
      After the successfull execution of this command, the terraform plan will be displayed which mentions 
-     the resources that would be destroyed. Once the plan is approved the infrastructure is destroyed. 
-
-   
-
-
-
+     the resources that would be destroyed. Once the plan is approved the infrastructure will be destroyed.
