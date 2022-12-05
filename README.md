@@ -1,5 +1,5 @@
 # Pre-requisites to run the CDKTF project
-  1) Download and install Node JS
+  1) Download and install Terraform CLI
       ```
       https://developer.hashicorp.com/terraform/downloads
       ``` 
