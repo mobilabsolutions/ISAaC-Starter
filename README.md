@@ -57,6 +57,9 @@
         storageAccountName: "<above storage account name from step 3>"
         containerName: "<above storage account container from step 3>"
         key: <enter the terraform state file name here as per your wish>
+      #------databricks------#
+      databricksConfig:
+        sku: "standard"
       ```
 
 # To synthesize and deploy the CDKTF project
