@@ -14,3 +14,6 @@
     storageAccountName: "<sa>"
     containerName: "cdktf"
     key: <key>
+#------databricks------#
+  databricksConfig:
+    sku: "standard"
