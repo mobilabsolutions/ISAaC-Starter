@@ -15,51 +15,38 @@
       ```
       npm install --global cdktf-cli@latest
       ```
-  5) Setup the Terraform state file
+  
+# Supply pre-deployment configuration and setup terraform statefile
+  1) Rename *common-config.yaml.sample* to *common-config.yaml* and update the contends with required configuration:
+      ```
+      tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+ID>"
+      location: "<input azure region name where azure resources to be created, ex. westeurope>"
+      locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
+      environment: "<input environment name, ex. prod>"
+      workload: "<input workload or short form of team name, ex. ops>"
+      org: "<input organisation name, ex. mlb>"
+      tags:
+        OwnerEmail: "<enter owner email id>"
+        CreationDate: "<enter azure resource creation date>"
+        DeletionDate: "<enter azure resource deletion date>"
+      tfstate:
+        # Terraform requires a storage account to store the statefile, those info goes here
+        resourceGroupName: "<enter statefile resource group name which should have been created already, ex. rg-prod-mlb-iac-westeurope>"
+        storageAccountName: "<enter statefile storage account name which should have been created already, ex. stprodmlbiacopsweu>"
+        containerName: "<enter statefile container name which should have been created already, ex. tfstate>"
+        key: <enter the terraform state file name here as per your wish which will be created, ex. tf-prod-mlb-iac-weu.tfstate>
+      #------databricks------#
+      databricksConfig:
+        sku: "standard"
+      ```
+  2) Crate terraform statefile resource group, storage account and container
      - Login to Microsoft Azure with the target tenant id
       ```
       az login --tenant <tenand-id>
       ```
-     - Set the target Azure subscription id
+     - Execute set_tags.sh shell script using Git Bash
       ```
-      az account set --subscription '<subscription-id>'
-      ```
-     - Create separate resource group, storage account and container to store the CDKTF state file
-      ```
-      az group create --location <location> --name <rg name> --tage <list of tags using NAME="VALUE" pairs>
-      ```
-      ```
-      az storage account create --name <storage account name> -g <above rg name> --location <location> --sku "Standard_LRS" --tags <list of tags using NAME="VALUE" pairs>
-      ```
-      ```
-      $env:ARM_ACCESS_KEY=$(az storage account keys list -g <above rg name> -n <above storage account name> --query "[0].value" -o tsv) ---> At PowerShell
-      export ARM_ACCESS_KEY=$(az storage account keys list -g <above rg name> --name <above storage account name> --query "[0].value" -o tsv ) ---> At GitBash
-      ```
-      ```
-      az storage container create --name <storage container name> --account-name <above storage account name> --account-key $ARM_ACCESS_KEY
-      ```
-     - TODO: Create default subnet in your VNet, if not already
-  6) Rename common-config.yaml.sample to common-config.yaml and update the contends with below configuration:
-      ```
-      tenantId: "<enter tenant id here>"
-      location: "<enter Azure region here>"
-      locationAbbreviation: "<enter local abbrevation here>"
-      environment: "<enter environment name here>"
-      workload: "<enter workload name here>"
-      org: "<enter organisation name here>"
-      tags:
-        OwnerEmail: "<enter owners email id>"
-        CreationDate: "<enter resource creation date>"
-        DeletionDate: "<enter deletion date>"
-      tfstate:
-        # Terraform requires a storage account to store the state
-        resourceGroupName: "<above rg name from step 3>"
-        storageAccountName: "<above storage account name from step 3>"
-        containerName: "<above storage account container from step 3>"
-        key: <enter the terraform state file name here as per your wish>
-      #------databricks------#
-      databricksConfig:
-        sku: "standard"
+      ./set_tags.sh
       ```
 
 # To synthesize and deploy the CDKTF project

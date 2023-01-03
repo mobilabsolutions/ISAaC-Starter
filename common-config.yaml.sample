@@ -1,19 +1,19 @@
----
-  tenantId: "<>"
-  location: "westeurope"
-  locationAbbreviation: "weu"
-  environment: "dev"
-  workload: "poc"
-  org: "<org>"
-  tags:
-    OwnerEmail: "<email>"
-    CreationDate: "<date in yyyy-MM-ddTHH:mm:ss.fffffffZ>"
-    DeletionDate: "<date in yyyy-MM-ddTHH:mm:ss.fffffffZ>"
-  tfstate:
-    resourceGroupName: "<rg>"
-    storageAccountName: "<sa>"
-    containerName: "cdktf"
-    key: <key>
+tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+ID>"
+location: "<input azure region name where azure resources to be created, ex. westeurope>"
+locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
+environment: "<input environment name, ex. prod>"
+workload: "<input workload or short form of team name, ex. ops>"
+org: "<input organisation name, ex. mlb>"
+tags:
+  OwnerEmail: "<enter owner email id>"
+  CreationDate: "<enter azure resource creation date>"
+  DeletionDate: "<enter azure resource deletion date>"
+tfstate:
+  # Terraform requires a storage account to store the statefile, those info goes here
+  resourceGroupName: "<enter statefile resource group name which should have been created already, ex. rg-prod-mlb-iac-westeurope>"
+  storageAccountName: "<enter statefile storage account name which should have been created already, ex. stprodmlbiacopsweu>"
+  containerName: "<enter statefile container name which should have been created already, ex. tfstate>"
+  key: <enter the terraform state file name here as per your wish which will be created, ex. tf-prod-mlb-iac-weu.tfstate>
 #------databricks------#
-  databricksConfig:
-    sku: "standard"
+databricksConfig:
+  sku: "standard"
