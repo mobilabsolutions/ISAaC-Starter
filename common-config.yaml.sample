@@ -5,15 +5,16 @@ environment: "<input environment name, ex. prod>"
 workload: "<input workload or short form of team name, ex. ops>"
 org: "<input organisation name, ex. mlb>"
 tags:
-  OwnerEmail: "<enter owner email id>"
-  CreationDate: "<enter azure resource creation date>"
-  DeletionDate: "<enter azure resource deletion date>"
+  OwnerEmail: "<input owner email id>"
+  CreationDate: "<input azure resource creation date>"
+  DeletionDate: "<input azure resource deletion date>"
 tfstate:
-  # Terraform requires a storage account to store the statefile, those info goes here
-  resourceGroupName: "<enter statefile resource group name which should have been created already, ex. rg-prod-mlb-iac-westeurope>"
-  storageAccountName: "<enter statefile storage account name which should have been created already, ex. stprodmlbiacopsweu>"
-  containerName: "<enter statefile container name which should have been created already, ex. tfstate>"
-  key: <enter the terraform state file name here as per your wish which will be created, ex. tf-prod-mlb-iac-weu.tfstate>
+  # Terraform requires a storage account to store the statefile, those info goes here; 
+  # either below resources can be created by the automation script or use the existing one
+  resourceGroupName: "<input desired statefile resource group name or the existing one, ex. rg-prod-mlb-iac-westeurope>"
+  storageAccountName: "<input desired statefile storage account name or the existing one, ex. stprodmlbiacopsweu>"
+  containerName: "<input desired statefile storage account container name or the existing one, ex. tfstate>"
+  key: <input the desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
 #------databricks------#
 databricksConfig:
   sku: "standard"

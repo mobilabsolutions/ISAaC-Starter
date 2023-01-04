@@ -19,31 +19,33 @@
 # Supply pre-deployment configuration and setup terraform statefile
   1) Rename *common-config.yaml.sample* to *common-config.yaml* and update the contends with required configuration:
       ```
-      tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+ID>"
+      tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+and+Subscription+IDs>"
       location: "<input azure region name where azure resources to be created, ex. westeurope>"
       locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
       environment: "<input environment name, ex. prod>"
       workload: "<input workload or short form of team name, ex. ops>"
       org: "<input organisation name, ex. mlb>"
       tags:
-        OwnerEmail: "<enter owner email id>"
-        CreationDate: "<enter azure resource creation date>"
-        DeletionDate: "<enter azure resource deletion date>"
+        OwnerEmail: "<input owner email id>"
+        CreationDate: "<input azure resource creation date>"
+        DeletionDate: "<input azure resource deletion date>"
       tfstate:
-        # Terraform requires a storage account to store the statefile, those info goes here
-        resourceGroupName: "<enter statefile resource group name which should have been created already, ex. rg-prod-mlb-iac-westeurope>"
-        storageAccountName: "<enter statefile storage account name which should have been created already, ex. stprodmlbiacopsweu>"
-        containerName: "<enter statefile container name which should have been created already, ex. tfstate>"
-        key: <enter the terraform state file name here as per your wish which will be created, ex. tf-prod-mlb-iac-weu.tfstate>
+        # Terraform requires a storage account to store the statefile, those info goes here; either you can create new resources or use the existing one
+        resourceGroupName: "<input desired statefile resource group name or already created one, ex. rg-prod-mlb-iac-westeurope>"
+        storageAccountName: "<input desired statefile storage account name or already created one, ex. stprodmlbiacopsweu>"
+        containerName: "<input desired statefile storage account container name or already created one, ex. tfstate>"
+        key: <input desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
       #------databricks------#
       databricksConfig:
         sku: "standard"
       ```
   2) Crate terraform statefile resource group, storage account and container
-     - Login to Microsoft Azure with the target tenant id
+     - Login to Microsoft Azure with the target tenant and subscription ids
       ```
       az login --tenant <tenand-id>
+      az account set --subscription=<subscription-id>
       ```
+       Refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+and+Subscription+IDs to get tenant and subscription ids
      - Execute set_tags.sh shell script using Git Bash
       ```
       ./set_tags.sh
