@@ -1,4 +1,4 @@
-tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+ID>"
+tenantId: "<input tenant or directory id;
 location: "westeurope" # "<input the desired location/region; defaults to westeurope>"
 locationAbbreviation: "weu" # Input standard azure region abbreviation name corresponding to above location, defaults to "weu"
 environment: "<input environment name, ex. prod>"
