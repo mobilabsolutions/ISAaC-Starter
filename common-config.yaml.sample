@@ -1,20 +1,19 @@
 tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+ID>"
-location: "<input azure region name where azure resources to be created, ex. westeurope>"
-locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
+location: "westeurope" # "<input the desired location/region; defaults to westeurope>"
+locationAbbreviation: "weu" # Input standard azure region abbreviation name corresponding to above location, defaults to "weu"
 environment: "<input environment name, ex. prod>"
 workload: "<input workload or short form of team name, ex. ops>"
-org: "<input organisation name, ex. mlb>"
+org: "<input organisation name, ex. mblb>"
 tags:
   OwnerEmail: "<input owner email id>"
   CreationDate: "<input azure resource creation date>"
   DeletionDate: "<input azure resource deletion date>"
 tfstate:
-  # Terraform requires a storage account to store the statefile, those info goes here; 
-  # either below resources can be created by the automation script or use the existing one
-  resourceGroupName: "<input desired statefile resource group name or the existing one, ex. rg-prod-mlb-iac-westeurope>"
-  storageAccountName: "<input desired statefile storage account name or the existing one, ex. stprodmlbiacopsweu>"
+  # Terraform requires a storage account to store the statefile remotely, those info goes here; 
+  resourceGroupName: "<input desired statefile resource group name or the existing one, ex. rg-prod-mblb-iac-westeurope>"
+  storageAccountName: "<input desired statefile storage account name or the existing one, ex. stprodmblbiacopsweu>"
   containerName: "<input desired statefile storage account container name or the existing one, ex. tfstate>"
-  key: <input the desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
+  key: <input the desired terraform state file name, ex. tf-prod-mblb-iac-weu.tfstate>
 #------databricks------#
 databricksConfig:
   sku: "standard"
