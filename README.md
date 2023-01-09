@@ -1,25 +1,32 @@
 # Pre-requisites to run the CDKTF project
-  1) Download and install Terraform CLI
+
+1. Please refer confluence for understanding the prerequisites of using the mobilab cloud platform. Please follow below steps after the prerequisites are completed.
+
+2. Download and install Terraform CLI
       ```
       https://developer.hashicorp.com/terraform/downloads
       ``` 
-  2) Download and install Node JS
+3. Download and install Node JS
       ```
       https://nodejs.org/en/download
       ``` 
-  3) Download the remote CDKTF core templates from the public GITHUB repository to local
+4. Download the remote CDKTF core templates from the public GITHUB repository to local
       ```
       cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
       ```
-  4) Install CDKTF using npm command
+5. Install CDKTF using npm command
       ```
       npm install --global cdktf-cli@latest
       ```
   
 # Supply pre-deployment configuration and setup terraform statefile
-  1) Rename *common-config.yaml.sample* to *common-config.yaml* and update the contends with required configuration:
+
+1. Please refer the sample common-config.yaml which is mentioned in the confluence page. Copy the sample common-config.yaml file contents. Rename *common-config.yaml.sample* to *common-config.yaml* and update the contends with required configuration. The values like tenant id, storage account name etc are already mentioned in the sample common-config.yaml file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
+
+The significance of each field in the common-config.yaml file is given below :- 
+  
       ```
-      tenantId: "<input tenant or directory id; refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+and+Subscription+IDs>"
+      tenantId: "<input tenant or directory id;
       location: "<input azure region name where azure resources to be created, ex. westeurope>"
       locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
       environment: "<input environment name, ex. prod>"
@@ -39,19 +46,17 @@
       databricksConfig:
         sku: "standard"
       ```
-  2) Crate terraform statefile resource group, storage account and container
-     - Login to Microsoft Azure with the target tenant and subscription ids
-      ```
-      az login --tenant <tenand-id>
-      az account set --subscription=<subscription-id>
-      ```
-       Refer https://mobilab.atlassian.net/wiki/spaces/CDKTF/pages/5153325415/To+get+Azure+Tenant+and+Subscription+IDs to get tenant and subscription ids
-     - Execute set_tags.sh shell script using Git Bash
-      ```
-      ./set_tags.sh
-      ```
+      
+# Download required dependencies
+
+Execute below command at the root location of the project :- 
+
+```
+      npm install
+```
 
 # To synthesize and deploy the CDKTF project
+
   1) Synthesize the CDKTF project at the project root directory
       ```
       cdktf synth
