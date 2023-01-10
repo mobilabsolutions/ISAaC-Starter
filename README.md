@@ -10,13 +10,13 @@
       ```
       https://nodejs.org/en/download
       ``` 
-4. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
-      ```
-      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
-      ```
-5. Install CDKTF using npm command
+4. Install CDKTF using npm command
       ```
       npm install --global cdktf-cli@0.13.0
+      ```
+5. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
+      ```
+      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
       ```
   
 # Supply pre-deployment configuration and setup terraform statefile
