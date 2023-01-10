@@ -8,6 +8,7 @@ import { load } from "js-yaml";
 import { readFileSync } from "fs";
 import {AdpCommonConfig, DefaultNaming} from "adp/adp/common";
 import {AdpLakehouse} from "adp/adp/organisms/adp-lakehouse";
+import {TimeProvider} from "@cdktf/provider-time/lib/provider";
 
 export class ADPStack extends TerraformStack {
 
@@ -34,6 +35,8 @@ export class ADPStack extends TerraformStack {
     new AzureadProvider(this, "AzureAD");
 
     new RandomProvider(this, "Random");
+
+    new TimeProvider(this, "Time");
 
     //todo tag validation?
     const commonConfig = load(readFileSync(ADPStack.COMMON_CONFIG_FILE, ADPStack.UTF8_ENCODING)) as AdpCommonConfig;
