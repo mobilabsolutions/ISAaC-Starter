@@ -12,7 +12,7 @@
       ``` 
 4. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
       ```
-      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0 --local
+      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
       ```
 5. Install CDKTF using npm command
       ```
