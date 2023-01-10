@@ -19,7 +19,7 @@
       cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
       ```
   
-# Supply pre-deployment configuration and setup terraform statefile
+# Supply pre-deployment configuration and azure login
 
 1. Please refer the sample `common-config.yaml` which is mentioned in the confluence page. Copy the sample `common-config.yaml` file contents. Rename `common-config.yaml.sample` to `common-config.yaml` and update the contents with the required configuration. The values like tenantId, storageAccountName etc are already mentioned in the sample `common-config.yaml` file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
 
@@ -46,6 +46,13 @@ tfstate:
 databricksConfig:
   sku: "standard"
  ```
+ 
+ 2. Login to Microsoft Azure with the target tenant and subscription IDs. Refer to confluence to get MobiLab's tenant and subscription ID.
+
+```
+az login --tenant <tenant-id>
+az account set --subscription <subscription-id>
+```
       
 # Download required dependencies
 
