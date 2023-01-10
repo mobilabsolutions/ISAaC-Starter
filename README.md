@@ -10,49 +10,56 @@
       ```
       https://nodejs.org/en/download
       ``` 
-4. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
+4. Install CDKTF using npm command
+      ```
+      npm install --global cdktf-cli@0.13.0
+      ```
+5. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
       ```
       cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
       ```
-5. Install CDKTF using npm command
-      ```
-      npm install --global cdktf-cli@latest
-      ```
   
-# Supply pre-deployment configuration and setup terraform statefile
+# Supply pre-deployment configuration and azure login
 
-1. Please refer the sample common-config.yaml which is mentioned in the confluence page. Copy the sample common-config.yaml file contents. Rename *common-config.yaml.sample* to *common-config.yaml* and update the contents with the required configuration. The values like tenant id, storage account name etc are already mentioned in the sample common-config.yaml file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
+1. Please refer the sample `common-config.yaml` which is mentioned in the confluence page. Copy the sample `common-config.yaml` file contents. Rename `common-config.yaml.sample` to `common-config.yaml` and update the contents with the required configuration. The values like tenantId, storageAccountName etc are already mentioned in the sample `common-config.yaml` file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
 
 The significance of each field in the common-config.yaml file is given below :- 
-  
-      ```
-      tenantId: "<input tenant or directory id>"
-      location: "<input azure region name where azure resources to be created, ex. westeurope>"
-      locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
-      environment: "<input environment name, ex. prod>"
-      workload: "<input workload or short form of team name, ex. ops>"
-      org: "<input organisation name, ex. mblb>"
-      tags:
-        OwnerEmail: "<input owner email id>"
-        CreationDate: "<input azure resource creation date>"
-        DeletionDate: "<input azure resource deletion date>"
-      tfstate:
-        # Terraform requires a storage account to store the statefile, those info goes here; either you can create new resources or use the existing one
-        resourceGroupName: "<input desired statefile resource group name or already created one, ex. rg-prod-mlb-iac-westeurope>"
-        storageAccountName: "<input desired statefile storage account name or already created one, ex. stprodmlbiacopsweu>"
-        containerName: "<input desired statefile storage account container name or already created one, ex. tfstate>"
-        key: <input desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
-      #------databricks------#
-      databricksConfig:
-        sku: "standard"
-      ```
+
+```yaml
+tenantId: "<input tenant or directory id>"
+location: "<input azure region name where azure resources to be created, ex. westeurope>"
+locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
+environment: "<input environment name, ex. prod>"
+workload: "<input workload or short form of team name, ex. ops>"
+org: "<input organisation name, ex. mblb>"
+tags:
+  OwnerEmail: "<input owner email id>"
+  CreationDate: "<input azure resource creation date>"
+  DeletionDate: "<input azure resource deletion date>"
+tfstate:
+  # Terraform requires a storage account to store the statefile, those info goes here; either you can create new resources or use the existing one
+  resourceGroupName: "<input desired statefile resource group name or already created one, ex. rg-prod-mlb-iac-westeurope>"
+  storageAccountName: "<input desired statefile storage account name or already created one, ex. stprodmlbiacopsweu>"
+  containerName: "<input desired statefile storage account container name or already created one, ex. tfstate>"
+  key: <input desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
+#------databricks------#
+databricksConfig:
+  sku: "standard"
+ ```
+ 
+ 2. Login to Microsoft Azure with the target tenant and subscription IDs. Refer to confluence to get MobiLab's tenant and subscription ID.
+
+```
+az login --tenant <tenant-id>
+az account set --subscription <subscription-id>
+```
       
 # Download required dependencies
 
 Execute below command at the root location of the project :- 
 
 ```
-      npm install
+npm install
 ```
 
 # To synthesize and deploy the CDKTF project

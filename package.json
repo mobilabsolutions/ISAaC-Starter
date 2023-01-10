@@ -26,6 +26,7 @@
     "@cdktf/provider-docker": "^3.0.11",
     "@cdktf/provider-http": "^1.0.2",
     "@cdktf/provider-random": "^3.0.11",
+    "@cdktf/provider-time": "^3.0.1",
     "cdktf": "^0.13.0",
     "constructs": "^10.1.130",
     "js-yaml": "^4.1.0",
