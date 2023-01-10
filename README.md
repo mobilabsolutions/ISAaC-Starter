@@ -12,7 +12,7 @@
       ``` 
 4. Download the remote CDKTF core templates from the public GITHUB repository to local
       ```
-      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/heads/main.zip --local
+      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0 --local
       ```
 5. Install CDKTF using npm command
       ```
@@ -26,12 +26,12 @@
 The significance of each field in the common-config.yaml file is given below :- 
   
       ```
-      tenantId: "<input tenant or directory id;
+      tenantId: "<input tenant or directory id>"
       location: "<input azure region name where azure resources to be created, ex. westeurope>"
       locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
       environment: "<input environment name, ex. prod>"
       workload: "<input workload or short form of team name, ex. ops>"
-      org: "<input organisation name, ex. mlb>"
+      org: "<input organisation name, ex. mblb>"
       tags:
         OwnerEmail: "<input owner email id>"
         CreationDate: "<input azure resource creation date>"
