@@ -10,7 +10,7 @@
       ```
       https://nodejs.org/en/download
       ``` 
-4. Download the remote CDKTF core templates from the public GITHUB repository to local
+4. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
       ```
       cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0 --local
       ```
@@ -21,7 +21,7 @@
   
 # Supply pre-deployment configuration and setup terraform statefile
 
-1. Please refer the sample common-config.yaml which is mentioned in the confluence page. Copy the sample common-config.yaml file contents. Rename *common-config.yaml.sample* to *common-config.yaml* and update the contends with required configuration. The values like tenant id, storage account name etc are already mentioned in the sample common-config.yaml file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
+1. Please refer the sample common-config.yaml which is mentioned in the confluence page. Copy the sample common-config.yaml file contents. Rename *common-config.yaml.sample* to *common-config.yaml* and update the contents with the required configuration. The values like tenant id, storage account name etc are already mentioned in the sample common-config.yaml file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
 
 The significance of each field in the common-config.yaml file is given below :- 
   
