@@ -16,7 +16,7 @@
       ```
 5. Install CDKTF using npm command
       ```
-      npm install --global cdktf-cli@latest
+      npm install --global cdktf-cli@0.13.0
       ```
   
 # Supply pre-deployment configuration and setup terraform statefile
