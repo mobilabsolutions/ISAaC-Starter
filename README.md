@@ -1,87 +1,57 @@
-# Pre-requisites to run the CDKTF project
+# Pre-requisites
+  1) Get *contributor* access to target Azure tenant and subscription from your cloud admin team
+  2) Get *contributor+userAccessAdministor* or owner access to target managed identity from your cloud admin team
+  3) Get *contributor* access to ISAaC GitHub repository from MobiLab ISAaC team
 
-1. Please refer confluence for understanding the prerequisites of using the mobilab cloud platform. Please follow below steps after the prerequisites are completed.
+# Fork the ISAaC GitHub Repository
+  Fork the ISAaC GitHub repository in your own GitHub workspace
+  *Note*: Your organization should compliant with GitHub as valid software
 
-2. Download and install Terraform CLI
-      ```
-      https://developer.hashicorp.com/terraform/downloads
-      ``` 
-3. Download and install Node JS
-      ```
-      https://nodejs.org/en/download
-      ``` 
-4. Install CDKTF using npm command
-      ```
-      npm install --global cdktf-cli@0.13.0
-      ```
-5. Download the remote CDKTF core templates from the public GITHUB repository to local in an empty folder
-      ```
-      cdktf init --template https://github.com/mobilabsolutions/azure-data-platform-cdktf-templates/archive/refs/tags/v1.0.0.zip --local
-      ```
+# Add federated credential to managed identity and update it to your GitHub workspace
+  Go to  [Microsoft Azure](https://portal.azure.com)  → Search *“managed identity“* in top middle search box → Click the target managed identity → click *“federated credentials (preview)“* in the left pane → Click *“Add credentials”* <br>
+  ## Input Parameters:
+  - Federated credential scenario - GitHub Actions deploying Azure Resources
+  - Organization                  - Enter your GitHub organization/owner name of your choice
+  - Repository                    - Enter the URL of the forked repository from above
+  - Entity                        - master
+  - Name                          - Enter any name of your choice, make it relevant
+
+  Launch the forked GitHub repository → Click “settings” → add the followings secrets one by one with managed identity details <br>
+  1) AZURE_CLIENT_ID
+  2) AZURE_SUBSCRIPTION_ID
+  3) AZURE_TENANT_ID
+
+Reference: 
+- [Add federated credential](https://learn.microsoft.com/en-us/azure/active-directory/develop/workload-identity-federation-create-trust-user-assigned-managed-identity?pivots=identity-wif-mi-methods-azp#configure-a-federated-identity-credential-on-a-user-assigned-managed-identity)
+- [Creating GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
   
-# Supply pre-deployment configuration and azure login
+# Configure infrastructure parameters
+  Adjust the different parameters inside `common-config.yaml` file in your forked GitHub repository as per the description given below and commit it to master branch
+  ```
+  ---
+    tenantId: "<input tenant or directory id>"
+    location: "<input azure region name where azure resources to be created, ex. westeurope>"
+    locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
+    environment: "<input environment name, ex. prod>"
+    workload: "<input workload or short form of team name, ex. ops>"
+    org: "<input organisation name, ex. mblb>"
+    tags:
+      OwnerEmail: "<input owner email id>"
+      CreationDate: "<input azure resource creation date>"
+      DeletionDate: "<input azure resource deletion date>"
+    tfstate:
+      # Terraform requires a storage account to store the statefile, those info goes here; either you can create new resources or use the existing one
+      resourceGroupName: "<input desired statefile resource group name or already created one, ex. rg-prod-mlb-iac-westeurope>"
+      storageAccountName: "<input desired statefile storage account name or already created one, ex. stprodmlbiacopsweu>"
+      containerName: "<input desired statefile storage account container name or already created one, ex. tfstate>"
+      key: "<input desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>"
+      useOidc: true
+    #------databricks------#
+    databricksConfig:
+      sku: "standard"
+  ```
+  *Note*: The new terraform statefile resources will be created by the pipeline automatically based on your desired input
 
-1. Please refer the sample `common-config.yaml` which is mentioned in the confluence page. Copy the sample `common-config.yaml` file contents. Rename `common-config.yaml.sample` to `common-config.yaml` and update the contents with the required configuration. The values like tenantId, storageAccountName etc are already mentioned in the sample `common-config.yaml` file. These values are good to get started with to create the infrastructure using Mobilab cloud platform. However these values can be changed as per need accordingly.
-
-The significance of each field in the common-config.yaml file is given below :- 
-
-```yaml
-tenantId: "<input tenant or directory id>"
-location: "<input azure region name where azure resources to be created, ex. westeurope>"
-locationAbbreviation: "<input standard azure region abbreviation name corresponding to above location, ex. weu>"
-environment: "<input environment name, ex. prod>"
-workload: "<input workload or short form of team name, ex. ops>"
-org: "<input organisation name, ex. mblb>"
-tags:
-  OwnerEmail: "<input owner email id>"
-  CreationDate: "<input azure resource creation date>"
-  DeletionDate: "<input azure resource deletion date>"
-tfstate:
-  # Terraform requires a storage account to store the statefile, those info goes here; either you can create new resources or use the existing one
-  resourceGroupName: "<input desired statefile resource group name or already created one, ex. rg-prod-mlb-iac-westeurope>"
-  storageAccountName: "<input desired statefile storage account name or already created one, ex. stprodmlbiacopsweu>"
-  containerName: "<input desired statefile storage account container name or already created one, ex. tfstate>"
-  key: <input desired terraform state file name, ex. tf-prod-mlb-iac-weu.tfstate>
-#------databricks------#
-databricksConfig:
-  sku: "standard"
- ```
- 
- 2. Login to Microsoft Azure with the target tenant and subscription IDs. Refer to confluence to get MobiLab's tenant and subscription ID.
-
-```
-az login --tenant <tenant-id>
-az account set --subscription <subscription-id>
-```
-      
-# Download required dependencies
-
-Execute below command at the root location of the project :- 
-
-```
-npm install
-```
-
-# To synthesize and deploy the CDKTF project
-
-  1) Synthesize the CDKTF project at the project root directory
-      ```
-      cdktf synth
-      ```
-  2) Deploy the CDKTF project to the Azure cloud
-      ```
-      cdktf deploy
-      ```
-      If the CDKTF templates are synthesized successfully the terraform plan is displayed.
-      After carefully reviewing the terraform plan, go ahead and approve the plan.
-      After approval of terraform plan, the Azure resources will be created in the mentioned
-      subscription one by one as per the logical sequence.
-
-# To destroy the created resources
-  1) Destroy the above created infrastructure
-     - Execute below command at the root location of the project to destroy the abvoe created infrastructure:
-      ```
-      cdktf destroy
-      ```
-     After the successfull execution of this command, the terraform plan will be displayed which mentions 
-     the resources that would be destroyed. Once the plan is approved the infrastructure will be destroyed.
+# Examine the GitHub workflow or pipeline
+  Once the common-config.yaml file has been committed, the pipeline will be triggered automatically in your pipeline;
+  And examine how the pipeline goes and verify the deployed azure infrastructure in your azure subscription, once pipeline successful.

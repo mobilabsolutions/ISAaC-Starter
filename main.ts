@@ -24,7 +24,7 @@ export class ADPStack extends TerraformStack {
           preventDeletionIfContainsResources: false
         },
         keyVault: {
-          recoverSoftDeletedKeyVaults: false,
+          recoverSoftDeletedKeyVaults: true,
           purgeSoftDeleteOnDestroy: true
         }
       },
@@ -35,7 +35,7 @@ export class ADPStack extends TerraformStack {
     new AzureadProvider(this, "AzureAD");
 
     new RandomProvider(this, "Random");
-
+    
     new TimeProvider(this, "Time");
 
     //todo tag validation?
