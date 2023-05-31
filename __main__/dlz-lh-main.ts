@@ -70,7 +70,7 @@ export class ADPStack extends TerraformStack {
       location: commonConfig.location
     })
 
-    // // Uncomment once the datafactory inside lakehouse is created
+    // Uncomment once the datafactory inside lakehouse is created
     const roleAssignments: Map<string, string[]> = new Map<string, string[]>([
       ['Contributor', ['6c129279-b1e4-49c0-803b-678a8ba4ef09']], // DLZ ADF identity
     ]);
