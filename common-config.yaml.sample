@@ -1,19 +1,15 @@
-tenantId: "<input tenant or directory id;
-location: "westeurope" # "<input the desired location/region; defaults to westeurope>"
-locationAbbreviation: "weu" # Input standard azure region abbreviation name corresponding to above location, defaults to "weu"
+tenantId: "<input tenant or directory id"
+location: "<input azure region name where azure resources to be created, ex. westeurope>"
 environment: "<input environment name, ex. prod>"
 workload: "<input workload or short form of team name, ex. ops>"
 org: "<input organisation name, ex. mblb>"
 tags:
-  OwnerEmail: "<input owner email id>"
-  CreationDate: "<input azure resource creation date>"
-  DeletionDate: "<input azure resource deletion date>"
+  OwnerEmail: "<enter owner email id>"
+  CreationDate: "<enter azure resource creation date>"
+  DeletionDate: "<enter azure resource deletion date>"
 tfstate:
-  # Terraform requires a storage account to store the statefile remotely, those info goes here; 
-  resourceGroupName: "<input desired statefile resource group name or the existing one, ex. rg-prod-mblb-iac-westeurope>"
-  storageAccountName: "<input desired statefile storage account name or the existing one, ex. stprodmblbiacopsweu>"
-  containerName: "<input desired statefile storage account container name or the existing one, ex. tfstate>"
-  key: <input the desired terraform state file name, ex. tf-prod-mblb-iac-weu.tfstate>
-#------databricks------#
-databricksConfig:
-  sku: "standard"
+  # Terraform requires a storage account to store the statefile, those info goes here;
+  resourceGroupName: "<enter statefile resource group name which should have been created already, ex. rg-prod-mblb-iac-westeurope>"
+  storageAccountName: "<enter statefile storage account name which should have been created already, ex. stprodmblbiacopsweu>"
+  containerName: "<enter statefile container name which should have been created already, ex. tfstate>"
+  key: <enter the terraform state file name here as per your wish which will be created, ex. tf-prod-mblb-iac-weu.tfstate>

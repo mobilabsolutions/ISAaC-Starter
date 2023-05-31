@@ -21,13 +21,16 @@
     "node": ">=14.0"
   },
   "dependencies": {
-    "@cdktf/provider-azuread": "^3.0.11",
-    "@cdktf/provider-azurerm": "^3.0.12",
-    "@cdktf/provider-docker": "^3.0.11",
-    "@cdktf/provider-http": "^1.0.2",
-    "@cdktf/provider-random": "^3.0.11",
-    "cdktf": "^0.13.0",
-    "constructs": "^10.1.130",
+    "@cdktf/provider-azuread": "^7.0.2",
+    "@cdktf/provider-azurerm": "^7.0.3",
+    "@cdktf/provider-databricks": "^7.0.1",
+    "@cdktf/provider-docker": "^7.0.0",
+    "@cdktf/provider-http": "^4.0.1",
+    "@cdktf/provider-random": "^7.0.0",
+    "@cdktf/provider-time": "^6.0.0",
+    "cdktf": "^0.16.1",
+    "constructs": "^10.2.18",
+    "ip-num": "^1.5.1",
     "js-yaml": "^4.1.0",
     "adp": "github:mobilabsolutions/ISAaC#v1.0.0"
   },
